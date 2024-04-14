@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dark.css" />
+    <link rel="stylesheet" href="light.css" />
+    <title>Budget-App</title>
+  </head>
+  <body>
+    <main>
+      <div class="loading">
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <section id="login">
+        <div class="content">
+          <div class="head">
+            <img src="./src/logo.png" alt="" srcset="" />
+          </div>
+          <h2>Budget App</h2>
+          <p>
+            Bienvenue dans votre porte monnaie électronique, je vous aide à bien
+            gérer votre argent.
+          </p>
+          <button id="loginBtn">Connexion avec Google</button>
+        </div>
+      </section>
+      <section id="dashboard">
+        <div class="navbar">
+          <a href="/">
+            <img src="./src/logo.png" alt="" srcset="" />
+          </a>
+          <div class="right">
+            <button id="profile-btn">
+              Profile
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-user"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </button>
+
+            <button id="deconnexion">
+              Se deconnecter
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-log-out"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" x2="9" y1="12" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="content">
+          <h1 id="user-greet">Bienvenue</h1>
+
+          <div class="container_flex">
+            <!-- form  -->
+            <div class="forms">
+              <!-- ajouter une dépense -->
+              <form action="" id="budget_form">
+                <h4>Créer un budget</h4>
+
+                <div class="form-container">
+                  <label for="name">Nom du budget :</label>
+                  <input type="text" name="name" id="" placeholder="habits" />
+                </div>
+                <div class="form-container">
+                  <label for="montant">Montant en $ :</label>
+                  <input type="text" name="montant" id="" placeholder="300" />
+                </div>
+                <button type="submit">Ajouter un budget</button>
+              </form>
+              <form action="" id="depenses">
+                <h4>Ajouter une dépense</h4>
+
+                <div class="form-container">
+                  <label for="budget">Sélectionner la dépense:</label>
+                  <select name="budget" id="selectBudget">
+                    <option value="test">Budget 1</option>
+                    <option value="test">Budget 1</option>
+                    <option value="test">Budget 1</option>
+                  </select>
+                </div>
+                <div class="form-container">
+                  <label for="name">Nom de la dépense :</label>
+                  <input type="text" name="name" id="" placeholder="habits" />
+                </div>
+                <div class="form-container">
+                  <label for="name">Montant en $ :</label>
+                  <input type="text" name="montant" id="" placeholder="300" />
+                </div>
+                <button type="submit">Ajouter un budget</button>
+              </form>
+            </div>
+
+            <div class="main-content">
+              <div class="budgets"></div>
+              <div class="depense-content">
+                <div class="header">
+                  <h4>Depenses</h4>
+
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-sliders-horizontal"
+                    >
+                      <line x1="21" x2="14" y1="4" y2="4" />
+                      <line x1="10" x2="3" y1="4" y2="4" />
+                      <line x1="21" x2="12" y1="12" y2="12" />
+                      <line x1="8" x2="3" y1="12" y2="12" />
+                      <line x1="21" x2="16" y1="20" y2="20" />
+                      <line x1="12" x2="3" y1="20" y2="20" />
+                      <line x1="14" x2="14" y1="2" y2="6" />
+                      <line x1="8" x2="8" y1="10" y2="14" />
+                      <line x1="16" x2="16" y1="18" y2="22" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="depenses">
+                  <div class="contents">
+                    <ul>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                      <li>
+                        <div class="dep">
+                          <!-- nom, montant et date -->
+                          <span class="depense-name">Habillements</span>
+                          <span class="depense-date">10/10/2022</span>
+                        </div>
+                        <p class="depense-amount">240$</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="charts">
+                    <canvas id="myChart" class="myChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile">
+              <!-- image,nom,total depense et total revenu -->
+              <div class="image">
+                <img
+                  src="https://api.dicebear.com/8.x/adventurer/svg?seed=Bob"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="infos">
+                <p class="name">John Doe</p>
+                <p>Bienvenue sur votre porte monnaie.</p>
+                <div class="cards">
+                  <div class="card">
+                    <p class="total-depense">Total depense</p>
+                    <p class="montant-depense">300$</p>
+                  </div>
+                  <div class="card">
+                    <p class="total-depense">Total Revenu</p>
+                    <p class="montant-depense">500$</p>
+                  </div>
+                </div>
+
+                <div class="footer">
+                  <button id="profile-retour">Retour</button>
+
+                  <button id="profile-deconnexion">
+                    Deconnexion
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-log-out"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" x2="9" y1="12" y2="12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <nav id="bottom-bar">
+        <div class="buttons">
+          <button class="active" id="home">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-layout-grid"
+            >
+              <rect width="7" height="7" x="3" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="14" rx="1" />
+              <rect width="7" height="7" x="3" y="14" rx="1" />
+            </svg>
+          </button>
+          <button id="bottom_add">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-plus"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </button>
+          <button id="bottom_user">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-circle-user"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="10" r="3" />
+              <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </main>
+    <script type="module" src="/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </body>
+</html>
