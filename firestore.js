@@ -40,11 +40,25 @@ export const addBudgetInBudgetCollection = async (budget) => {
   return budgetRef;
 };
 
+// ajouter depense
+const depenseRefs = collection(db, "depenses");
+
+export const addDepenseInDepenseCollection = async (depense) => {
+  const depenseRef = await addDoc(depenseRefs, depense);
+  return depenseRef;
+};
+
 // snapshot des documents d'une collection budget avec uid d'un user
 
 export const getBudgetsByUser = async (uid) => {
   const q = query(collection(db, "budgets"), where("uid", "==", uid));
   //   snapshot des documents d'une collection budget avec uid d'un user
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+};
+
+export const getDepenseByBudget = async (budgetId) => {
+  const q = query(collection(db, "depenses"), where("budget", "==", budgetId));
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 };

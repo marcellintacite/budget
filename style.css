@@ -2,7 +2,7 @@
 
 /* style.css */
 :root {
-  /* color-scheme: light dark; */
+  color-scheme: light dark;
 
   --blue: #6495ed;
   --white: #ffffff;
@@ -27,10 +27,13 @@ body {
   background-color: var(--light-background);
 
   height: 95vh;
+  width: 100%;
   scroll-behavior: smooth;
+  padding-bottom: 10rem;
   main {
     width: 100%;
     height: 100%;
+
     color: var(--gray);
     position: relative;
 
@@ -48,10 +51,18 @@ body {
       display: none;
       justify-content: center;
       align-items: center;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.375);
       z-index: 9999;
       color: var(--white);
       font-weight: bold;
+    }
+
+    .titre {
+      margin-top: 2rem;
+      font-size: clamp(1.2rem, 2rem, 3rem);
+      font-weight: 800;
+      color: #333;
+      text-align: center;
     }
 
     button {
@@ -128,12 +139,9 @@ body {
       height: 100%;
 
       @media (max-width: 468px) {
-        width: 100%;
-        margin-bottom: 10rem;
-      }
+        width: 97%;
 
-      @media (max-width: 748px) {
-        width: 90%;
+        margin-bottom: 10rem;
       }
 
       .navbar {
@@ -143,12 +151,15 @@ body {
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
+        position: sticky;
+        top: 0;
+        margin-top: 1rem;
+        background-color: var(--white);
         @media (max-width: 748px) {
           display: none;
         }
-
         img {
-          width: 60px;
+          width: 50px;
         }
 
         .right {
@@ -165,12 +176,20 @@ body {
           }
         }
       }
+      #bottom {
+        width: 100%;
+        height: 4vh;
 
+        @media (max-width: 748px) {
+          display: block;
+          height: 10rem;
+        }
+      }
       .content {
         font-family: "Raleway";
         overflow: hidden;
         @media (max-width: 748px) {
-          padding: 0.5rem;
+          padding: 0rem;
         }
 
         h1 {
@@ -197,6 +216,8 @@ body {
             @media (max-width: 748px) {
               flex-direction: column;
               display: none;
+              width: 98%;
+              margin: auto;
             }
 
             #budget_form.close {
@@ -321,23 +342,37 @@ body {
               overflow: hidden;
               overflow-y: scroll;
 
-              padding: 1rem;
-              height: 9rem;
-              display: flex;
+              padding: 1rem 0.2rem;
+              height: 15rem;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              background-color: var(--white);
               align-items: center;
               flex-wrap: wrap;
               gap: 1rem;
               margin-top: 1rem;
               border-radius: 1px;
+              padding: 10px;
+              border: 1px solid rgb(223, 223, 223);
+              border-radius: 10px;
 
               @media (max-width: 748px) {
                 width: 100%;
-                flex-wrap: nowrap;
+                height: 39vh;
+                overflow: hidden;
+                overflow-y: scroll;
+                gap: 0.4rem;
+                /* one card and other scroll */
+                grid-template-columns: 1fr;
+                background-color: #fff;
+                padding: 10px;
+                border: 1px solid rgb(223, 223, 223);
+                border-radius: 10px;
               }
 
               .card {
                 background-color: var(--white);
-                width: 200px;
+                width: 100%;
                 height: 5.5rem;
                 padding: 1rem;
                 border-radius: 0.3rem;
@@ -346,10 +381,6 @@ body {
 
                 &:hover {
                   box-shadow: 0 0 10px rgba(196, 203, 255, 0.75);
-                }
-                @media (max-width: 748px) {
-                  width: 100%;
-                  margin: auto;
                 }
 
                 h2 {
@@ -379,6 +410,10 @@ body {
                 p {
                   font-size: clamp(12px, 14px, 16px);
                   margin-top: 0.5rem;
+                }
+
+                @media (max-width: 748px) {
+                  width: auto;
                 }
               }
             }
@@ -418,7 +453,6 @@ body {
                 display: flex;
                 gap: 1rem;
                 width: 100%;
-                height: 100%;
                 @media (max-width: 748px) {
                   width: 100%;
                   margin: auto;
@@ -431,7 +465,8 @@ body {
                   flex-direction: column;
                   gap: 1rem;
                   overflow-y: auto;
-                  height: 100%;
+
+                  height: 60vh;
                   background-color: var(--white);
                   @media (max-width: 748px) {
                     overflow: scroll;
@@ -550,7 +585,7 @@ body {
                   flex-direction: column;
                 }
                 .card {
-                  background-color: var(--blue);
+                  background-color: #fff1fe;
                   border-radius: 0.3rem;
                   padding: 5px;
                   width: 170px;
@@ -560,7 +595,7 @@ body {
                   justify-content: center;
                   align-items: center;
                   gap: 5px;
-                  color: var(--white);
+
                   @media (max-width: 748px) {
                     width: 90%;
                     margin: auto;
@@ -569,7 +604,7 @@ body {
                   }
 
                   &:nth-child(1) {
-                    background-color: var(--danger);
+                    background-color: #d2ffea;
                   }
                   p {
                     font-size: clamp(0.8rem, 1rem, 1.1rem);

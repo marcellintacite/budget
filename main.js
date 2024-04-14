@@ -10,8 +10,10 @@ import { auth, db } from "./firebase";
 import { switchFrame } from "./navigation";
 import {
   addBudgetInBudgetCollection,
+  addDepenseInDepenseCollection,
   addUser,
   getBudgetsByUser,
+  getDepenseByBudget,
   getUser,
 } from "./firestore";
 import {
@@ -21,7 +23,7 @@ import {
   serverTimestamp,
   where,
 } from "firebase/firestore";
-import { showBudgetCard } from "./views";
+import { showBudgetCard, showDepenseCard } from "./views";
 
 // firebase auth
 const provider = new GoogleAuthProvider();
@@ -99,17 +101,50 @@ onAuthStateChanged(auth, async (user) => {
           ...doc.data(),
           id: doc.id,
         }));
-        if (budgets.length == 0) {
-          const budgetFrame = document.querySelector(".budgets");
-          // texte aucun budget
-          budgetFrame.innerHTML = "<p>Aucun budget disponible</p>";
-        }
+
         const budgetFrame = document.querySelector(".budgets");
 
         budgetFrame.innerHTML = "";
-        budgets.forEach((budget) => {
-          const card = showBudgetCard(budget);
+        budgets.forEach(async (budget) => {
+          const dep = await getDepenseByBudget(budget.id);
+          // aditionner les montants des depenses dans le budget
+          let total = 0;
+          dep.forEach((depense) => {
+            total += parseInt(depense.montant);
+          });
+
+          console.log(total);
+          const card = showBudgetCard(budget, total);
           budgetFrame.innerHTML += card;
+        });
+
+        if (budgets.length === 0) {
+          // texte aucun budget
+          budgetFrame.style.width = "100%";
+          budgetFrame.style.display = "flex";
+          budgetFrame.style.alignItems = "center";
+          budgetFrame.style.justifyContent = "center";
+          budgetFrame.innerHTML = "<p class=''>Aucun budget disponible</p>";
+        }
+      }
+    );
+    // depenses show
+    onSnapshot(
+      query(collection(db, "depenses"), where("uid", "==", user.uid)),
+      (snapshot) => {
+        const depenses = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        const depensesFrame = document.querySelector(".depenses .contents ul");
+        depensesFrame.innerHTML = "";
+        if (depenses.length == 0) {
+          depensesFrame.innerHTML =
+            "<p class='titre'>Aucune depense disponible</p>";
+        }
+        depenses.forEach((depense) => {
+          const card = showDepenseCard(depense);
+          depensesFrame.innerHTML += card;
         });
       }
     );
@@ -134,6 +169,33 @@ onAuthStateChanged(auth, async (user) => {
         });
       }
     );
+
+    formDepense.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const depense = {
+        name: formData.get("name"),
+        budget: formData.get("budget"),
+        montant: formData.get("montant"),
+        uid: user.uid,
+        date: serverTimestamp(),
+      };
+
+      // trouver le budget correspondant
+      const budget = await getBudgetsByUser(user.uid).then((budgets) => {
+        return budgets.find((budget) => budget.name === depense.budget);
+      });
+      if (depense.montant > budget.montant) {
+        alert("Depense superieur au budget, veuillez recommencer");
+        return;
+      }
+
+      depense.budget = budget.id;
+
+      addDepenseInDepenseCollection(depense);
+      e.target.reset();
+      alert("Dépense ajouter");
+    });
 
     // ajout budget
     const budgetForm = document.querySelector("#budget_form");

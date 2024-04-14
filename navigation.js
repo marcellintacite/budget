@@ -32,6 +32,7 @@ export const switchFrame = (frame) => {
     case "dashboard":
       profile.style.display = "none";
       mainContent.style.display = "block";
+      usergreet.style.display = "block";
       //   ajouter une petite animation
       mainContent.style.animation = "fadeIn 0.5s ease-in-out";
       break;

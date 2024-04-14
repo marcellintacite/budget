@@ -1,4 +1,7 @@
-export function showBudgetCard(budget) {
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+
+export function showBudgetCard(budget, total) {
+  console.log(total);
   return ` <div class="card">
     <h2>
       <svg
@@ -20,7 +23,20 @@ export function showBudgetCard(budget) {
       </svg>
       ${budget.montant}$
     </h2>
-    <span class="cumul">120$</span>
+    <span class="cumul">${budget.montant - total}$</span>
     <p>${budget.name}</p>
   </div>`;
+}
+
+export function showDepenseCard(depense) {
+  // generate a color with a low oppaciry and use the same color id depense.budget is the same
+  const customColor = `#${Math.floor(Math.random() * 16777215).toString(12)}1`;
+  return `<li style="background-color: #${customColor};">
+  <div class="dep">
+    <!-- nom, montant et date -->
+    <span class="depense-name">${depense.name}</span>
+    <span class="depense-date">${new Date(depense.date.toDate())}</span>
+  </div>
+  <p class="depense-amount">${depense.montant}$</p>
+</li>`;
 }
