@@ -29,10 +29,20 @@ export const switchFrame = (frame) => {
       //   ajouter une petite animation
       profile.style.animation = "fadeIn 0.5s ease-in-out";
       break;
+    case "Mobileprofile":
+      mainContent.style.display = "none";
+      usergreet.style.display = "none";
+      profile.style.display = "block";
+      forms.style.display = "none";
+
+      //   ajouter une petite animation
+      profile.style.animation = "fadeIn 0.5s ease-in-out";
+      break;
     case "dashboard":
       profile.style.display = "none";
       mainContent.style.display = "block";
       usergreet.style.display = "block";
+
       //   ajouter une petite animation
       mainContent.style.animation = "fadeIn 0.5s ease-in-out";
       break;
@@ -40,6 +50,7 @@ export const switchFrame = (frame) => {
       profile.style.display = "none";
       forms.style.display = "none";
       mainContent.style.display = "block";
+      usergreet.style.display = "block";
       //   ajouter une petite animation
       mainContent.style.animation = "fadeIn 0.5s ease-in-out";
       break;

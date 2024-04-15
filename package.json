@@ -9,9 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vite-plugin-pwa": "^0.19.8"
   },
   "dependencies": {
-    "firebase": "^10.11.0"
+    "dark-mode-toggle": "^0.15.0",
+    "firebase": "^10.11.0",
+    "pwa-asset-generator": "^6.3.1"
   }
 }

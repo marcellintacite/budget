@@ -1,0 +1,82 @@
+{
+  "name": "Budget app",
+  "short_name": "Budget ",
+  "theme_color": "#6495ed",
+  "background_color": "#6495ed",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "description": "L'application Budget est une application qui vous permet de suivre vos depenses, et de les enregistrer.",
+  "icons": [
+    {
+      "src": "manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "mobile-1.png",
+      "sizes": "429x868",
+      "type": "image/gif",
+      "form_factor": "tall",
+      "label": "Screenshot 1"
+    },
+    {
+      "src": "mobile-2.png",
+      "sizes": "429x868",
+      "type": "image/gif",
+      "form_factor": "tall",
+      "label": "Screenshot 2"
+    },
+    {
+      "src": "mobile-3.png",
+      "sizes": "429x868",
+      "type": "image/gif",
+      "form_factor": "tall",
+      "label": "Screenshot 2"
+    },
+    {
+      "src": "desktop-1.png",
+      "sizes": "1918x958",
+      "type": "image/gif",
+      "form_factor": "wide",
+      "label": "Desktop 1"
+    },
+    {
+      "src": "desktop-2.png",
+      "sizes": "1906x957",
+      "type": "image/gif",
+      "form_factor": "wide",
+      "label": "Desktop 2"
+    },
+
+    {
+      "src": "desktop-3.png",
+      "sizes": "1887x956",
+      "type": "image/gif",
+      "form_factor": "wide",
+      "label": "Desktop 3"
+    }
+  ]
+}

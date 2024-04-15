@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import {
   getFirestore,
   initializeFirestore,
+  persistentLocalCache,
   persistentMultipleTabManager,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,4 +30,8 @@ export const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
 // initialiser firestore avec persistance
-export const db = getFirestore(app);
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+});

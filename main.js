@@ -5,7 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { login } from "./auth";
-import data from "./data";
+import data, { createChartData } from "./data";
 import { auth, db } from "./firebase";
 import { switchFrame } from "./navigation";
 import {
@@ -28,29 +28,26 @@ import { showBudgetCard, showDepenseCard } from "./views";
 // firebase auth
 const provider = new GoogleAuthProvider();
 
-const config = {
-  type: "doughnut",
-  data: data,
-};
-const ctx = document.getElementById("myChart");
-
-new Chart(ctx, config);
-
 // btns
 const profileBtn = document.querySelector("#profile-btn");
 const profileRetourBtn = document.querySelector("#profile-retour");
 const profileUserBottom = document.querySelector("#bottom_user");
 const homeBtn = document.querySelector("#home");
 const addBtn = document.querySelector("#bottom_add");
+const toggleDarkMode = document.querySelector("#dark-mode-btn");
+const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+
 // events
 profileBtn.addEventListener("click", () => {
   switchFrame("profile");
 });
 profileRetourBtn.addEventListener("click", () => {
   switchFrame("dashboard");
+  profileUserBottom.classList.remove("active");
+  homeBtn.classList.add("active");
 });
 profileUserBottom.addEventListener("click", () => {
-  switchFrame("profile");
+  switchFrame("Mobileprofile");
   profileUserBottom.classList.add("active");
   homeBtn.classList.remove("active");
 });
@@ -93,6 +90,18 @@ onAuthStateChanged(auth, async (user) => {
     const userGreet = document.querySelector("#user-greet");
     userGreet.textContent = `Bienvenue ${user.displayName}`;
 
+    const data = await createChartData(user.uid);
+
+    const config = {
+      type: "doughnut",
+      data: data,
+    };
+    const ctx = document.getElementById("myChart");
+
+    new Chart(ctx, config);
+
+    const budgetP = document.querySelector(".montant-budget");
+    let totalBudget = 0;
     // budgets
     onSnapshot(
       query(collection(db, "budgets"), where("uid", "==", user.uid)),
@@ -106,6 +115,8 @@ onAuthStateChanged(auth, async (user) => {
 
         budgetFrame.innerHTML = "";
         budgets.forEach(async (budget) => {
+          totalBudget += parseInt(budget.montant);
+          budgetP.textContent = `${totalBudget} $`;
           const dep = await getDepenseByBudget(budget.id);
           // aditionner les montants des depenses dans le budget
           let total = 0;
@@ -128,6 +139,9 @@ onAuthStateChanged(auth, async (user) => {
         }
       }
     );
+
+    const totalDepenseP = document.querySelector(".montant-depense");
+    let totalDepense = 0;
     // depenses show
     onSnapshot(
       query(collection(db, "depenses"), where("uid", "==", user.uid)),
@@ -145,7 +159,10 @@ onAuthStateChanged(auth, async (user) => {
         depenses.forEach((depense) => {
           const card = showDepenseCard(depense);
           depensesFrame.innerHTML += card;
+          totalDepense += parseInt(depense.montant);
         });
+
+        totalDepenseP.textContent = totalDepense + "$";
       }
     );
 
@@ -195,6 +212,22 @@ onAuthStateChanged(auth, async (user) => {
       addDepenseInDepenseCollection(depense);
       e.target.reset();
       alert("Dépense ajouter");
+      if (!("Notification" in window)) {
+        return;
+      }
+
+      try {
+        let notification = new Notification("Ajout de depense", {
+          body: "Depense ajouter avec succes",
+          badge: 1,
+          icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+        });
+        navigator.setAppBadge(1).catch((err) => {
+          console.log(err);
+        });
+      } catch (err) {
+        alert("Notification API error: " + err);
+      }
     });
 
     // ajout budget
@@ -245,3 +278,33 @@ deconnexion.addEventListener("click", () => {
     switchFrame("login");
   });
 });
+
+function load() {
+  const button = document.querySelector("#dark-mode-btn");
+  const body = document.querySelector("body");
+
+  // MediaQueryList object
+  const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  // Toggles the "dark-mode" class based on if the media query matches
+  function toggleDarkMode(state) {
+    // Older browser don't support the second parameter in the
+    // classList.toggle method so you'd need to handle this manually
+    // if you need to support older browsers.
+    document.documentElement.classList.toggle("dark-mode", state);
+  }
+
+  // Initial setting
+  toggleDarkMode(useDark.matches);
+
+  // Listen for changes in the OS settings
+  useDark.addListener((evt) => toggleDarkMode(evt.matches));
+
+  // Toggles the "dark-mode" class on click
+  button.addEventListener("click", () => {
+    alert("Babe");
+    document.documentElement.classList.toggle("dark-mode");
+  });
+}
+
+window.addEventListener("DOMContentLoaded", load);

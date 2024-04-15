@@ -1,3 +1,23 @@
+import { getBudgetsByUser } from "./firestore";
+
+export const createChartData = async (uid) => {
+  const budget = await getBudgetsByUser(uid);
+  const data = {
+    labels: budget.map((budget) => budget.name),
+    datasets: [
+      {
+        label: "budget",
+        data: budget.map((budget) => budget.montant),
+        backgroundColor: ["#6495ed", "#ff8282", "#64be94", "#ff5082"],
+      },
+    ],
+  };
+
+  return data;
+};
+
+const budgets = "";
+console.log(budgets);
 const data = {
   labels: ["Red", "Blue", "Yellow"],
   datasets: [
